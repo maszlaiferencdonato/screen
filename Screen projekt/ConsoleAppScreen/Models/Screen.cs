@@ -34,7 +34,6 @@ namespace ConsoleAppScreen.Models
                     }
                     Console.WriteLine();
                 }
-            
 
         }
 
@@ -57,11 +56,8 @@ namespace ConsoleAppScreen.Models
                 for (int j = 0; j < width; j++)
                 {
                     Console.Write(sign);
-                    
-
                 }
                 Console.WriteLine();
-
             }
         }
 
@@ -76,6 +72,12 @@ namespace ConsoleAppScreen.Models
         static public void DrawLine(byte x1, byte y1, byte x2, byte y2, char sign = '*')
         {
             // TODO : (Doni) Vonal rajzolásának implementációja a képernyőn
+            for (int i = 0; i < x2 - x1; i++)
+            {
+                Console.SetCursorPosition(x1 + i, y1);
+                Console.Write(sign);
+                Console.WriteLine();
+            }
         }
 
         /// <summary>
@@ -87,7 +89,11 @@ namespace ConsoleAppScreen.Models
         static public string AlignTextCenter(string text, int width)
         {
             // TODO : (Donato) Szöveg középre igazításának implementációja
-            throw new NotImplementedException();
+            StringBuilder igazitas = new StringBuilder();
+            int megadott_szelesseg = (width - text.Length) / 2;
+            igazitas.Append('/', megadott_szelesseg);
+            igazitas.Append(text);
+            return igazitas.ToString();
         }
 
         /// <summary>
@@ -98,14 +104,23 @@ namespace ConsoleAppScreen.Models
         /// <returns>A két szöveg karaktereinek keverésével elkészített szöveg</returns>
         public static string MixedStrings(string textA, string textB)
         {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i <textB.Length ; i++)
+            StringBuilder mixed = new StringBuilder();
+            int i=0;
+            while (i < textA.Length || i < textB.Length)
             {
-                Console.Write(textA[i]);
-                for (int g=0; g < textB.Length; g++)
-                { Console.Write(textB[g]) ; }
-                
+                if (i < textA.Length)
+                {
+                    mixed.Append(textA[i]);
+                }
+                if (i < textB.Length)
+                {
+                    mixed.Append(textB[i]);
+                }
+                i++;
             }
+            return mixed.ToString();
+
+        }
             // TODO : (Ádám) Két szöveg keverésének implementációja
             // 1. példa:
             // textA = "Hello"
@@ -116,9 +131,8 @@ namespace ConsoleAppScreen.Models
             // textA = "abcd"
             // textB = "12345"
             // Kimenet: a1b2c3d45
-            throw new NotImplementedException();
 
-        }
+        
 
         // TODO : (Ádám) Két szöveg ismételt váltakozásának implementációja
         /// <summary>
@@ -130,15 +144,17 @@ namespace ConsoleAppScreen.Models
         /// <returns>A két szöveg ismételt váltakozásával elkészített szöveg</returns>
         public static string RepeatedStrings(string textA, string textB, int iteration)
         {
-            StringBuilder result = new StringBuilder();
+
+            StringBuilder sb = new StringBuilder();
 
             for (int i = 0; i < iteration; i++)
             {
-                result.Append(textA);
-                result.Append(textB);
+                sb.Append(textA);
+                sb.Append(textB);
             }
+            return sb.ToString();
 
-            return result.ToString();
+            
         }  
     }
 }
